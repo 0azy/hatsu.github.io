@@ -13,32 +13,35 @@
   <main>
     <p class="muted">Hatsu · Actualizada el 8 de noviembre de 2026</p>
     <h1>Política de Privacidad</h1>
-    <p>Esta política describe los datos que procesa Hatsu, un bot de seguridad y moderación para Discord en desarrollo, y cómo se manejan en la implementación actual.</p>
+    <p>Esta política describe los datos que procesa Hatsu, un bot de seguridad y moderación para Discord en desarrollo. Hatsu está diseñado para ejecutarse en una instancia bajo el control de la comunidad que lo aloja.</p>
 
     <h2>1. Responsable y contacto</h2>
-    <p>Operador del proyecto: <strong>0azy</strong>. Contacto para consultas y solicitudes de privacidad: <a href="mailto:zyra.develops@gmail.com">zyra.develops@gmail.com</a>.</p>
-    <p>Hatsu se ejecuta en el equipo o servidor que aloja la instancia. Quien controla ese equipo puede acceder a sus archivos de registro y debe protegerlos y atender las solicitudes de los miembros del servidor.</p>
+    <p>Operador del proyecto: <strong>0azy</strong>. Contacto: <a href="mailto:zyra.develops@gmail.com">zyra.develops@gmail.com</a>.</p>
+    <p>En una instalación autohospedada, el operador del equipo o servidor donde corre Hatsu controla los archivos locales y debe protegerlos y responder a solicitudes relacionadas con esos registros. El creador del proyecto no recibe automáticamente los datos de una instancia autohospedada.</p>
 
     <h2>2. Datos que procesa el bot</h2>
     <ul>
-      <li><strong>Contenido de mensajes:</strong> se procesa temporalmente en memoria para buscar enlaces y patrones de spam o estafa. La implementación actual no escribe el texto ni las URLs del mensaje en el archivo de registro.</li>
-      <li><strong>Metadatos de moderación:</strong> cuando se detecta una coincidencia, el bot registra fecha y hora, identificadores del servidor, canal, miembro y mensaje, regla detectada, nivel de confianza y resultado de la acción.</li>
-      <li><strong>Datos de Discord:</strong> el bot recibe de Discord la información necesaria para conectarse al servidor, leer los mensajes permitidos y ejecutar las acciones autorizadas.</li>
+      <li><strong>Contenido de mensajes y datos de embeds:</strong> se procesan temporalmente en memoria para detectar dominios y patrones sospechosos. Hatsu no guarda el texto, las URLs ni el contenido de embeds en sus registros.</li>
+      <li><strong>Metadatos de moderación:</strong> cuando se detecta una coincidencia, se registran fecha y hora, servidor, miembro, canal o mensaje, regla, nivel de confianza y resultado de la acción.</li>
+      <li><strong>Configuración del servidor:</strong> se guarda localmente el listado de dominios, los ajustes de antiraid y ban, y el ID del canal de avisos.</li>
+      <li><strong>Panel OAuth:</strong> si el administrador activa el panel, Discord proporciona el ID y nombre de la cuenta, y la lista de servidores con sus permisos. El panel vuelve a consultar los permisos al abrir el panel y al guardar cambios.</li>
+      <li><strong>Sesión del panel:</strong> el identificador de sesión, el token OAuth de Discord y los datos necesarios para el panel se mantienen solo en memoria durante un máximo de cuatro horas. El token no se escribe en disco. El navegador recibe una cookie firmada, HttpOnly, SameSite y, cuando se usa HTTPS, Secure.</li>
     </ul>
 
-    <h2>3. Finalidades y almacenamiento</h2>
-    <p>El contenido se procesa para detectar y retirar mensajes sospechosos y aplicar la configuración de moderación del servidor. Los metadatos de las acciones se guardan localmente, en el archivo <code>hatsu-actions.jsonl</code> de la instancia del bot, para que su operador pueda revisar qué ocurrió.</p>
-    <p>La implementación actual no tiene un plazo automático de borrado: los registros permanecen en el equipo que aloja el bot hasta que su operador los elimine. El administrador de esa instancia debe mantenerlos solo el tiempo necesario y borrar registros ante una solicitud válida. Para pedir la eliminación de un registro local, contacta primero al administrador del servidor que aloja Hatsu; también puedes escribir a <a href="mailto:zyra.develops@gmail.com">zyra.develops@gmail.com</a>.</p>
+    <h2>3. Finalidad, almacenamiento y retención</h2>
+    <p>Hatsu procesa mensajes para detectar y retirar spam o enlaces de estafa, ejecutar la configuración del servidor y permitir a los administradores consultar los ajustes y acciones recientes.</p>
+    <p>La configuración se guarda en <code>data/guild-config.json</code>. Los metadatos de moderación se guardan en archivos diarios separados por servidor dentro de <code>data/audit/</code>. Hatsu elimina los registros con más de 30 días al iniciar y cada 24 horas mientras está en ejecución. La configuración local permanece hasta que el operador la borra o elimina la instancia. Quien opera la instancia puede borrar antes esos archivos y debe atender las solicitudes válidas de eliminación.</p>
+    <p>Para solicitar la eliminación de un registro de una comunidad, contacta primero al administrador del servidor que aloja Hatsu. También puedes escribir a <a href="mailto:zyra.develops@gmail.com">zyra.develops@gmail.com</a> para preguntas o solicitudes relacionadas con el proyecto.</p>
 
-    <h2>4. Compartición y terceros</h2>
-    <p>El código actual no envía el contenido de los mensajes a servicios de análisis, publicidad o inteligencia artificial. El bot usa la API de Discord para recibir mensajes y ejecutar las acciones de moderación configuradas. Discord trata los datos conforme a su propia <a href="https://discord.com/privacy">Política de Privacidad</a>.</p>
-    <p>Estas páginas están alojadas mediante GitHub Pages. GitHub registra y almacena la dirección IP de quien visita un sitio de GitHub Pages por motivos de seguridad; consulta la <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">documentación de GitHub Pages</a> y el <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">Aviso de Privacidad de GitHub</a>.</p>
+    <h2>4. Compartición y servicios externos</h2>
+    <p>El código actual usa la API de Discord para recibir mensajes, ejecutar acciones de moderación y autenticar a los administradores que eligen usar el panel. No envía el contenido de mensajes a servicios de análisis, publicidad o inteligencia artificial. Discord procesa datos conforme a su <a href="https://discord.com/privacy">Política de Privacidad</a>.</p>
+    <p>Estas páginas están alojadas mediante GitHub Pages. GitHub registra y almacena la dirección IP de quienes visitan un sitio de GitHub Pages por motivos de seguridad. Consulta la <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">documentación sobre recopilación de datos de GitHub Pages</a> y el <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">Aviso de Privacidad de GitHub</a>.</p>
 
     <h2>5. Seguridad</h2>
-    <p>El contenido de los mensajes se procesa en memoria y no se guarda en los registros de la implementación actual. Los archivos de registro se encuentran bajo el control del operador de la instancia; protege el equipo, limita el acceso y no publiques esos archivos. Ningún sistema conectado a Discord puede garantizar riesgo cero.</p>
+    <p>Los registros se separan por servidor y permanecen en el equipo que aloja el bot. Restringe el acceso al equipo, protege el token del bot y no publiques la carpeta de datos. El operador del proceso puede acceder al contenido de mensajes mientras Hatsu lo analiza; por eso el modo autohospedado es necesario si la comunidad quiere controlar directamente sus datos. Ningún sistema conectado a Discord puede garantizar riesgo cero.</p>
 
     <h2>6. Cambios y contacto</h2>
-    <p>Actualizaremos esta política si cambia la forma en que Hatsu procesa datos. Última actualización: 8 de noviembre de 2026. Para consultas o solicitudes: <a href="mailto:zyra.develops@gmail.com">zyra.develops@gmail.com</a>.</p>
+    <p>Actualizaremos esta política si cambia la forma en que Hatsu procesa datos. Última actualización: 8 de noviembre de 2026. Contacto: <a href="mailto:zyra.develops@gmail.com">zyra.develops@gmail.com</a>.</p>
   </main>
 </body>
 </html>
