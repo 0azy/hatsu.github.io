@@ -1,33 +1,35 @@
 # Hatsu
 
-**Hatsu** es un bot de seguridad para Discord, actualmente en desarrollo. Su objetivo es ayudar a las comunidades a detectar estafas, reducir el spam y responder a raids con moderación configurable y permisos mínimos.
+**Hatsu** es un bot de seguridad para Discord en desarrollo, con moderación configurable y un panel autohospedado. Su propósito es ayudar a detectar estafas y spam y contener raids.
 
-## Estado del proyecto
+## Funciones implementadas
 
-El prototipo del bot incluye:
+- Detección de dominios de estafa configurados por cada servidor.
+- Eliminación de mensajes que coinciden con dominios confirmados o ciertos patrones de enlaces sospechosos.
+- Ban automático configurable únicamente para dominios confirmados. Viene desactivado por defecto y solo afecta al servidor.
+- Antiraid opcional mediante umbrales de entradas y timeouts temporales. Viene desactivado por defecto.
+- Comandos `/hatsu` para configurar dominios, bans, antiraid y canal de avisos.
+- Panel inicial con inicio de sesión de Discord. Requiere alojar y configurar una instancia propia.
 
-- Detección de dominios de estafa configurados y de algunos patrones de enlaces sospechosos.
-- Eliminación de mensajes detectados.
-- Ban opcional dentro del servidor para coincidencias de alta confianza; viene desactivado por defecto.
-- Registro local de metadatos de moderación, sin guardar el texto ni las URLs del mensaje.
+La detección no cubre todas las variantes y no analiza imágenes ni mensajes directos. Mantén revisión humana para acciones automáticas.
 
-El panel web, el inicio de sesión con Discord, la configuración por servidor y las reglas completas antiraid todavía están en desarrollo. Este repositorio contiene el sitio de políticas; el código del bot se mantiene aparte.
+## Datos y privacidad
 
-## Privacidad
+El contenido de mensajes se procesa en memoria y no se escribe en los registros. La instancia guarda configuración local por servidor y metadatos de moderación en archivos diarios separados por servidor. Los registros con más de 30 días se eliminan al iniciar y cada 24 horas mientras Hatsu está ejecutándose. Las sesiones del panel permanecen en memoria hasta cuatro horas; el token OAuth no se guarda en disco.
 
-El contenido de los mensajes se analiza en memoria para moderarlos. El prototipo guarda los identificadores del servidor, canal, miembro y mensaje, la regla detectada y el resultado de la acción en `hatsu-actions.jsonl`, en el equipo que aloja el bot. No hay borrado automático de esos registros todavía.
-
-Para conocer los detalles, consulta la [Política de Privacidad](https://0azy.github.io/hatsu.github.io/privacy-policy.html). Las [Condiciones del Servicio](https://0azy.github.io/hatsu.github.io/terms-of-service.html) explican el uso del bot.
-
-## Documentos
+Quien controla el equipo que aloja Hatsu puede acceder al contenido durante el procesamiento y a los archivos locales. Para que el operador del servicio no pueda leer esos registros, cada comunidad debe alojar su propia instancia.
 
 - [Política de Privacidad](https://0azy.github.io/hatsu.github.io/privacy-policy.html)
 - [Condiciones del Servicio](https://0azy.github.io/hatsu.github.io/terms-of-service.html)
-- [Sitio legal de Hatsu](https://0azy.github.io/hatsu.github.io/)
+- [Sitio legal](https://0azy.github.io/hatsu.github.io/)
 
-## GitHub Pages
+## Este repositorio
 
-Este repositorio publica el sitio legal. GitHub Pages está configurado para servir la rama `main` desde la carpeta raíz. Los archivos principales son `index.html`, `privacy-policy.html` y `terms-of-service.html`.
+Este repositorio publica las páginas legales de Hatsu mediante GitHub Pages. El código del bot se mantiene en el workspace de desarrollo.
+
+- Portada: `index.html`
+- Privacidad: `privacy-policy.html`
+- Condiciones: `terms-of-service.html`
 
 ## Contacto
 
